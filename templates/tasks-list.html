@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card-body">
+    <h4>Список задач</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Заголовок</th>
+                <th scope="col">Описание</th>
+                <th scope="col">Добавлено</th>
+                <th scope="col">Отредактировано</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if tasks|length > 0 %}
+                {% for task in tasks %}
+                <tr>
+                    <td>{{ task.title }}</td>
+                    <td>{{ task.description }}</td>
+                    <td>{{ task.created_at }}</td>
+                    <td>{{ task.updated_at }}</td>
+                    <td><a type="button" class="btn btn-warning" href="/tasks-update/{{ task.id }}">Update</a>
+                        <a type="button" class="btn btn-danger" href="/tasks-delete/{{ task.id }}">Delete</a>
+                </tr>
+                {% endfor %}
+            {% else %}
+            <tr>
+                <td><h4>У нас еще нет задач</h4></td>
+            {% endif %}
+        </tbody>
+    </table>
+    <form method="post">
+        <a class="btn btn-success" href="/tasks">Добавить задачу</a>
+    </form>
+</div>
+{% endblock %}
